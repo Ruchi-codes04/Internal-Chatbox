@@ -26,6 +26,37 @@
             </div>
             <a href="../php/logout.php?logout_id=<?php echo $row['unique_id']?>" class="logout">Logout</a>
            </header>
+
+           <a href="create-group.php" class="create-group-btn">+ Create Group</a>
+<!-- Group List Section -->
+<div class="group-list">
+    <h3>Groups</h3>
+    <?php
+    include_once "../php/config.php";
+    $unique_id = $_SESSION['unique_id'];
+
+    $group_query = mysqli_query($conn, 
+        "SELECT g.group_id, g.group_name 
+         FROM groups g 
+         JOIN group_members gm ON g.group_id = gm.group_id 
+         WHERE gm.unique_id = '{$unique_id}'");
+
+    if (mysqli_num_rows($group_query) > 0) {
+        while ($group = mysqli_fetch_assoc($group_query)) {
+            echo '<div class="group-item">';
+            echo '<a href="group-chat.php?group_id=' . $group['group_id'] . '">' . htmlspecialchars($group['group_name']) . '</a>';
+            echo '</div>';
+        }
+    } else {
+        echo "<p>No groups yet.</p>";
+    }
+    ?>
+</div>
+
+
+
+
+
            <div class="search">
             <span class="text">
                 Select a user to start chat

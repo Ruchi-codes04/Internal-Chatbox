@@ -3,6 +3,7 @@ inputField = form.querySelector(".input-field"),
 sendBtn = form.querySelector("button"),
 chatBox = document.querySelector(".chat-box");
 
+
 form.onsubmit = (e)=>{
 e.preventDefault(); //prevent from form submit
 }
@@ -59,3 +60,4 @@ function scrollToBottom() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
 }
+// previous code

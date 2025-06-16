@@ -30,7 +30,11 @@
           
 
         </div>
-        <form action="#" class="typing-area" autocomplete="off">
+        <form action="#" class="typing-area" autocomplete="off" enctype="multipart/form-data">
+          <input type="file" name="file" id="fileInput" hidden>
+           <label for="fileInput" class="insert-button">
+           <i class="fas fa-paperclip"></i>
+           </label>
 
             <input type="text" name="outgoing_id" value="<?php echo $_SESSION['unique_id']; ?>" hidden>
              <input type="text" name="incoming_id" value="<?php echo $user_id; ?>" hidden>

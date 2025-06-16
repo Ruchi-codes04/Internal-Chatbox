@@ -35,6 +35,7 @@ if(isset($_SESSION['unique_id'])){
             }
         }
         echo  $output;
+        
     }        
 
 
@@ -43,5 +44,5 @@ if(isset($_SESSION['unique_id'])){
     header("../login.php");
 }
 ?>
+<!-- previous code -->
 
-<!-- 2;19;31 -->

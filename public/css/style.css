@@ -325,6 +325,7 @@ form .name-details .field:last-child {
 }
 .typing-area button{
 width: 55px;
+height: 45px;
 border: none;
 outline: none;
 background: #333;
@@ -342,4 +343,68 @@ border-radius: 0 5px 5px 0;
     text-align: right;
 }
 
+.typing-area {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+}
+
+.insert-button {
+  position: relative;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #555;
+}
+
+.insert-button i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* create group */
+.create-group-btn {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 8px 16px;
+  margin: 10px 0;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.create-group-btn:hover {
+  background-color: #555;
+}
+
+.group-list {
+  padding: 10px;
+  margin: 10px;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+}
+.group-item {
+  margin: 5px 0;
+}
+.group-item a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.file-input {
+    display: none;
+}
+
+.insert-button {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.insert-button:hover {
+    color: #333;
+}
 
