@@ -334,4 +334,12 @@ cursor: pointer;
 border-radius: 0 5px 5px 0;
 }
 
+.chat .details .time {
+    display: block;
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 4px;
+    text-align: right;
+}
+
 

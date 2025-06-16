@@ -15,10 +15,13 @@ if(isset($_SESSION['unique_id'])){
     $query = mysqli_query($conn, $sql);
     if(mysqli_num_rows($query) > 0){
         while($row = mysqli_fetch_assoc($query)){
+             $time = date("g:ia", strtotime($row['created_at'])); // 12-hour format with am/pm
+
             if($row['outgoing_msg_id'] === $outgoing_id){//if true, user is sender
                      $output .= '<div class="chat outgoing">
                                 <div class="details">
                                 <p>'. $row['msg'] .'</p>
+                                <span class="time">'. date("g:i a", strtotime($row['created_at'])) .'</span>
                                 </div>
                                 </div>';
             }else{ // user is receiver
@@ -26,6 +29,7 @@ if(isset($_SESSION['unique_id'])){
                                 <img src="../php/images/'. $row['img'] .'" alt="" />
                                 <div class="details">
                                 <p>'. $row['msg'] .'</p>
+                                <span class="time">'. date("g:i a", strtotime($row['created_at'])) .'</span>
                                 </div>
                                 </div>';
             }
