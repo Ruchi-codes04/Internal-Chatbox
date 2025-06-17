@@ -1,63 +1,87 @@
 const form = document.querySelector(".typing-area"),
-inputField = form.querySelector(".input-field"),
-sendBtn = form.querySelector("button"),
-chatBox = document.querySelector(".chat-box");
+      inputField = form.querySelector(".input-field"),
+      fileInput = form.querySelector(".file-input"),
+      sendBtn = form.querySelector("button"),
+      chatBox = document.querySelector(".chat-box");
 
+form.onsubmit = (e) => {
+    e.preventDefault(); // Prevent form from submitting normally
+};
 
-form.onsubmit = (e)=>{
-e.preventDefault(); //prevent from form submit
-}
+chatBox.addEventListener("click", function (e) {
+    if (e.target.classList.contains("delete-btn")) {
+        const msgId = e.target.getAttribute("data-id");
 
-sendBtn.onclick = ()=>{
-    //AJAX Code
-   let xhr = new XMLHttpRequest(); //creating XML objects
-   xhr.open("POST", "../php/insert-chat.php",true);
-   xhr.onload = ()=>{
-             if(xhr.readyState === XMLHttpRequest.DONE){
-                if(xhr.status === 200){
-                    inputField.value = "";//once msg is inserted into the db then leaves the input field blank
-                    scrollToBottom();
-                    
+        if (confirm("Delete this message?")) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "../php/delete-msg.php", true);
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    console.log(xhr.response);
                 }
-             }
-   } 
-   let formData = new FormData(form); //new formdata object
-   xhr.send(formData);
-}
-
-chatBox.onmouseenter = ()=>{
-    chatBox.classList.add("active");
-}
-chatBox.onmouseenter = ()=>{
-    chatBox.classList.remove("active");
-}
+            };
+            const formData = new FormData();
+            formData.append("msg_id", msgId);
+            xhr.send(formData);
+        }
+    }
+});
 
 
-setInterval(()=>{
- //AJAX Code
-   let xhr = new XMLHttpRequest(); //creating XML objects
-   xhr.open("POST", "/Chat-App/php/get-chat.php", true);
-
+sendBtn.onclick = ()=> {
+    
+   // AJAX Code
+   let xhr = new XMLHttpRequest();
+   xhr.open("POST", "../php/insert-chat.php", true);
    xhr.onload = ()=>{
-             if(xhr.readyState === XMLHttpRequest.DONE){
-                if(xhr.status === 200){
-                    let data = xhr.response;
-                    chatBox.innerHTML = data;
-                    if(!chatBox.classList.contains("active")){
-                        scrollToBottom();
-                    }
-                    
-                  
-                   }
-             }
-            }
-            
-   let formData = new FormData(form); //new formdata object
+       if(xhr.readyState === XMLHttpRequest.DONE){
+           if(xhr.status === 200){
+               inputField.value = ""; // clear input field
+               scrollToBottom();
+
+               // Clear file input after sending
+               fileInput.value = "";
+
+           }
+       }
+   }
+   let formData = new FormData(form); // new formdata object
    xhr.send(formData);
-},500);
+}
+
+
+// ChatBox hover state (fix: mouseleave also needed)
+chatBox.onmouseenter = () => {
+    chatBox.classList.add("active");
+};
+chatBox.onmouseleave = () => {
+    chatBox.classList.remove("active");
+};
+
+// Periodic message fetching
+setInterval(() => {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "../php/get-chat.php", true);
+
+    xhr.onload = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            let data = xhr.response;
+            chatBox.innerHTML = data;
+
+            if (!chatBox.classList.contains("active")) {
+                scrollToBottom();
+            }
+        }
+    };
+
+    
+    const formData = new FormData();
+    formData.append("outgoing_id", form.querySelector("[name='outgoing_id']").value);
+    formData.append("incoming_id", form.querySelector("[name='incoming_id']").value);
+    
+    xhr.send(formData);
+}, 500);
 
 function scrollToBottom() {
     chatBox.scrollTop = chatBox.scrollHeight;
-
 }
-// previous code

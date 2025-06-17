@@ -15,25 +15,46 @@ if(isset($_SESSION['unique_id'])){
     $query = mysqli_query($conn, $sql);
     if(mysqli_num_rows($query) > 0){
         while($row = mysqli_fetch_assoc($query)){
-             $time = date("g:ia", strtotime($row['created_at'])); // 12-hour format with am/pm
+    $time = date("g:i a", strtotime($row['created_at'])); // Format time
+    $isOutgoing = $row['outgoing_msg_id'] === $outgoing_id;
+    $msg = $row['msg'];
+    $file = $row['file'];
 
-            if($row['outgoing_msg_id'] === $outgoing_id){//if true, user is sender
-                     $output .= '<div class="chat outgoing">
-                                <div class="details">
-                                <p>'. $row['msg'] .'</p>
-                                <span class="time">'. date("g:i a", strtotime($row['created_at'])) .'</span>
-                                </div>
-                                </div>';
-            }else{ // user is receiver
-                    $output .= '<div class="chat incoming">
-                                <img src="../php/images/'. $row['img'] .'" alt="" />
-                                <div class="details">
-                                <p>'. $row['msg'] .'</p>
-                                <span class="time">'. date("g:i a", strtotime($row['created_at'])) .'</span>
-                                </div>
-                                </div>';
-            }
+    // Check if it's a file message
+    $fileContent = '';
+    if (!empty($file)) {
+        $ext = pathinfo($file, PATHINFO_EXTENSION);
+        if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])) {
+            $fileContent = "<img src='{$file}' alt='Image' style='max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 5px;'>";
+        } else {
+            $basename = basename($file);
+            $fileContent = "<a href='{$file}' download style='color: #2b6cb0; display: inline-block; margin-top: 5px;'>📄 Download {$basename}</a>";
         }
+    }
+
+    // Combine message + file (if both exist)
+    $messageBody = "<p>{$msg}</p>" . $fileContent;
+
+    if ($isOutgoing) {
+    $output .= '<div class="chat outgoing" data-msg-id="' . $row['msg_id'] . '">
+                  <div class="details">' . 
+                    $messageBody . 
+                    '<span class="time">'. $time .'</span>
+                    <button class="delete-btn" data-id="' . $row['msg_id'] . '">🗑️</button>
+                  </div>
+                </div>';
+} else {
+    $output .= '<div class="chat incoming">
+                  <img src="../php/images/'. $row['img'] .'" alt="" />
+                  <div class="details">' . 
+                    $messageBody . 
+                    '<span class="time">'. $time .'</span>
+                  </div>
+                </div>';
+}
+
+}
+
         echo  $output;
         
     }        

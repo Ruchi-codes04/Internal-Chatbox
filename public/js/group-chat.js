@@ -1,13 +1,11 @@
 const form = document.querySelector(".typing-area"),
       inputField = form.querySelector(".input-field"),
       sendBtn = form.querySelector("button"),
-       fileInput = form.querySelector("input[type='file']"),
+      fileInput = form.querySelector("input[type='file']"),
       chatBox = document.querySelector(".chat-box");
 
 const groupIdInput = form.querySelector("input[name='group_id']");
 const senderIdInput = form.querySelector("input[name='sender_id']");
-
-
 
 // Handle file selection
 fileInput.addEventListener('change', function(e) {
@@ -90,3 +88,26 @@ function scrollToBottom() {
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 }
+
+chatBox.addEventListener("click", function (e) {
+    if (e.target.classList.contains("delete-btn")) {
+        const msgId = e.target.getAttribute("data-id");
+
+        if (confirm("Are you sure you want to delete this message?")) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "../php/delete-group-msg.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onload = function () {
+                if (xhr.status === 200 && xhr.responseText.trim() === "success") {
+                    e.target.closest(".chat").remove();
+                } else {
+                    console.error("Server Error:", xhr.responseText);
+                    alert("Failed to delete message.");
+                }
+            };
+            xhr.send("message_id=" + encodeURIComponent(msgId));
+        }
+    }
+});
+
+

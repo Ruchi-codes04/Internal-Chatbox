@@ -46,6 +46,7 @@ if (isset($_SESSION['unique_id'])) {
                                     <p>'.$message_content.'</p>
                                     '.$file_content.'
                                     <span class="time">'.$time.'</span>
+                                    <button class="delete-btn" data-id="' . $row['message_id'] . '">🗑️</button>
                                 </div>
                             </div>';
             } else {

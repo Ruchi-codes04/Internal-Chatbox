@@ -8,14 +8,14 @@ if (isset($_POST['update_group'])) {
     $group_name = mysqli_real_escape_string($conn, $_POST['group_name']);
     $members = $_POST['members']; // array
 
-    // 1. Update group name
+    //Update group name
     $query = "UPDATE groups SET group_name = '$group_name' WHERE group_id = $group_id AND created_by = $user_id";
     mysqli_query($conn, $query);
 
-    // 2. Remove all existing members (except admin)
+    //Remove all existing members (except admin)
     mysqli_query($conn, "DELETE FROM group_members WHERE group_id = $group_id AND is_admin = 0");
 
-    // 3. Reinsert selected members
+    //Reinsert selected members
     foreach ($members as $member_id) {
         // Skip if admin (already present)
         if ($member_id == $user_id) continue;

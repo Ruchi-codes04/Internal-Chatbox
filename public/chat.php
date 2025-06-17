@@ -30,8 +30,8 @@
           
 
         </div>
-        <form action="#" class="typing-area" autocomplete="off" enctype="multipart/form-data">
-          <input type="file" name="file" id="fileInput" hidden>
+        <form action="../php/insert-chat.php" method="POST" enctype="multipart/form-data" class="typing-area">
+          <input type="file" name="file" id="fileInput" class="file-input">
            <label for="fileInput" class="insert-button">
            <i class="fas fa-paperclip"></i>
            </label>
