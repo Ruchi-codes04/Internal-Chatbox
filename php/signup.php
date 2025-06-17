@@ -5,6 +5,9 @@ $fname = mysqli_real_escape_string($conn, $_POST['fname']);
 $lname = mysqli_real_escape_string($conn, $_POST['lname']);
 $email = mysqli_real_escape_string($conn, $_POST['email']);
 $password = mysqli_real_escape_string($conn, $_POST['password']);
+$designation = mysqli_real_escape_string($conn, $_POST['designation']);
+$location = mysqli_real_escape_string($conn, $_POST['location']);
+$employee_code = mysqli_real_escape_string($conn, $_POST['employee_code']);
 
 if(!empty($fname) && !empty($lname) && !empty($email) && !empty($password)){
      // check email is valid or not
@@ -39,8 +42,8 @@ if(!empty($fname) && !empty($lname) && !empty($email) && !empty($password)){
                            $random_id = rand(time(), 10000000);
 
                            // insert user data into table
-                          $sql2 = mysqli_query($conn, "INSERT INTO users (unique_id, fname, lname, email, password, img, status)
-                                              VALUES ({$random_id}, '{$fname}', '{$lname}', '{$email}', '{$password}', '{$new_img_name}', '{$status}')");
+                          $sql2 = mysqli_query($conn, "INSERT INTO users (unique_id, fname, lname, email, password, img, status, designation, location, employee_code)
+                                              VALUES ({$random_id}, '{$fname}', '{$lname}', '{$email}', '{$password}', '{$new_img_name}', '{$status}', '{$designation}', '{$location}', '{$employee_code}')");
 
                            if($sql2){
                             $sql3 = mysqli_query($conn, "SELECT * FROM users WHERE email = '{$email}'");

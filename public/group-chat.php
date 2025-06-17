@@ -26,9 +26,19 @@ if ($group_id) {
 ?>
 
         <a href="./users.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
-        <img src="../php/images/1749820324penguin.jpg" alt="Group" /> <!-- Use a placeholder group image -->
+       <img src="../php/images/<?php echo !empty($group['group_image']) ? $group['group_image'] : 'team.png'; ?>" alt="Group" />
+
+
         <div class="details">
           <span><?php echo $group['group_name']; ?></span>
+          <?php
+// Check if current user is the group creator
+$creator_check = mysqli_query($conn, "SELECT * FROM groups WHERE group_id = '$group_id' AND created_by = '{$_SESSION['unique_id']}'");
+if (mysqli_num_rows($creator_check) > 0) {
+    echo '<a href="edit-group.php?group_id=' . $group_id . '" class="edit-group-btn" style="margin-left:10px; font-size: 14px;">Edit Group</a>';
+}
+?>
+
           <p>Group Chat</p>
         </div>
       </header>

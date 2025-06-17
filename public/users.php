@@ -28,6 +28,8 @@
            </header>
 
            <a href="create-group.php" class="create-group-btn">+ Create Group</a>
+           <a href="chat-requests.php" class="chat-request-link">Chat Requests</a>
+
 <!-- Group List Section -->
 <div class="group-list">
     <h3>Groups</h3>

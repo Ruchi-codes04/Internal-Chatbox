@@ -23,11 +23,31 @@
                         <input type="text" name="lname" placeholder="Last Name" required>
                     </div>
                 </div>
+            <div class="name-details">
+                <div class="field input">
+                        <label>Employee_code</label>
+                        <input type="text" name="employee_code" placeholder="Enter your Emp Id" required>
+                        
+                    </div>
 
                     <div class="field input">
-                        <label>Email</label>
-                        <input type="text" name="email" placeholder="Enter Your Email" required>
+                        <label>Designation</label>
+                        <input type="text" name="designation" placeholder="Enter Your job role" required>
                     </div>
+            </div>
+
+                    <div class="field input">
+                        <label>Location</label>
+                        <input type="text" name="location" placeholder="Enter location" required>
+                        
+                    </div>
+
+                    <div class="field input">
+                        <label>E-mail</label>
+                        <input type="email" name="email" placeholder="Enter New email" required>
+                        
+                    </div>
+
 
                     <div class="field input">
                         <label>Password</label>

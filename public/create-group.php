@@ -13,9 +13,12 @@
 </head>
 <body>
   <h2>Create a New Group</h2>
-  <form action="../php/create-group.php" method="POST">
+  <form action="../php/create-group.php" method="POST" enctype="multipart/form-data">
     <label>Group Name:</label>
     <input type="text" name="group_name" required><br><br>
+
+    <label>Group Image:</label>
+  <input type="file" name="group_image" accept="image/*"><br><br>
 
     <label>Select Members:</label><br>
     <?php
