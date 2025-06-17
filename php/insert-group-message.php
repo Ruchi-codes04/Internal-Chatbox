@@ -17,7 +17,7 @@ if (isset($_SESSION['unique_id'])) {
     if (in_array($_FILES['file']['type'], $allowed_types) && 
         $_FILES['file']['size'] <= $max_size) {
         
-        $upload_dir = '../uploads/';
+        $upload_dir = '..php/uploads/';
         if (!file_exists($upload_dir)) {
             mkdir($upload_dir, 0777, true);
         }
