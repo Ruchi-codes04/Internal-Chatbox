@@ -8,7 +8,8 @@ $stats = [
     'total_users' => 0,
     'total_groups' => 0,
     'total_messages' => 0,
-    'online_users' => 0
+    'online_users' => 0,
+    'open_tickets' => 0
 ];
 
 $result = $conn->query("SELECT COUNT(*) as count FROM users");
@@ -22,6 +23,9 @@ if ($result) $stats['total_messages'] = $result->fetch_assoc()['total'];
 
 $result = $conn->query("SELECT COUNT(*) as count FROM users WHERE status = 'Active now'");
 if ($result) $stats['online_users'] = $result->fetch_assoc()['count'];
+
+$result = $conn->query("SELECT COUNT(*) as count FROM support_tickets WHERE status = 'open'");
+if ($result) $stats['open_tickets'] = $result->fetch_assoc()['count'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,6 +111,20 @@ if ($result) $stats['online_users'] = $result->fetch_assoc()['count'];
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card stat-card bg-danger text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-title">Open Tickets</h6>
+                                <h2 class="mb-0"><?= $stats['open_tickets'] ?></h2>
+                            </div>
+                            <i class="fas fa-ticket-alt fa-3x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Quick Actions -->
@@ -125,6 +143,9 @@ if ($result) $stats['online_users'] = $result->fetch_assoc()['count'];
                         </a>
                         <a href="admin-private-chats.php" class="btn btn-primary btn-block">
                             <i class="fas fa-comments mr-2"></i> View Private Chats
+                        </a>
+                        <a href="admin-view-tickets.php" class="btn btn-info btn-block">
+                            <i class="fas fa-ticket-alt mr-2"></i> View Support Tickets
                         </a>
                         <a href="admin-create-user.php" class="btn btn-success btn-block">
                             <i class="fas fa-user-plus mr-2"></i> Create New User
