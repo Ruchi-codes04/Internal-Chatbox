@@ -26,10 +26,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Handle file upload
-    $img_name = "";
-    if (isset($_FILES['image'])) {
-        $upload = handleFileUpload($_FILES['image'], __DIR__ . "/../images/");
-        if ($upload) $img_name = $upload;
+    $img_name = "default.jpg"; // Default image if none is uploaded
+    if (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
+        $upload = handleFileUpload($_FILES['image'], __DIR__ . "/images/");
+        if ($upload) {
+            $img_name = $upload;
+        } else {
+            header("Location: ../public/admin-create-user.php?error=" . urlencode("Failed to upload image"));
+            exit;
+        }
     }
 
     // Hash the password before storing

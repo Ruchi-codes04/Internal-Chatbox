@@ -24,11 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     // Handle image upload
     if (isset($_FILES['image'])) {
-        $upload = handleFileUpload($_FILES['image'], __DIR__ . "/../images/");
+        $upload = handleFileUpload($_FILES['image'], __DIR__ . "/images/");
         if ($upload) {
             // Delete old image if exists
             if (!empty($img_name)) {
-                unlink(__DIR__ . "/../images/" . $img_name);
+                unlink(__DIR__ . "/images/" . $img_name);
             }
             $img_name = $upload;
         }
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     // Handle image removal
     if (isset($_POST['remove_image']) && !empty($img_name)) {
-        unlink(__DIR__ . "/../images/" . $img_name);
+        unlink(__DIR__ . "/images/" . $img_name);
         $img_name = "";
     }
 

@@ -20,16 +20,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     // Handle image removal
     if ($remove_image && $group_image !== 'team.png') {
-        unlink(__DIR__ . "/../images/" . $group_image);
+        unlink(__DIR__ . "/images/" . $group_image);
         $group_image = "team.png";
     }
     
     // Handle new image upload
     if (isset($_FILES['group_image'])) {
-        $upload = handleFileUpload($_FILES['group_image'], __DIR__ . "/../images/");
+        $upload = handleFileUpload($_FILES['group_image'], __DIR__ . "/images/");
         if ($upload) {
             if ($group_image !== 'team.png') {
-                unlink(__DIR__ . "/../images/" . $group_image);
+                unlink(__DIR__ . "/images/" . $group_image);
             }
             $group_image = $upload;
         }

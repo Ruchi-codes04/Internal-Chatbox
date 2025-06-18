@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     $group_image = "team.png";
     if (isset($_FILES['group_image'])) {
-        $upload = handleFileUpload($_FILES['group_image'], __DIR__ . "/../images/");
+        $upload = handleFileUpload($_FILES['group_image'], __DIR__ . "/images/");
         if ($upload) $group_image = $upload;
     }
 
