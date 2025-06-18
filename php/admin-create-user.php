@@ -32,6 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($upload) $img_name = $upload;
     }
 
+    // Hash the password before storing
+    $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
     // Insert user
     $random_id = rand(time(), 10000000);
     $stmt = $conn->prepare("INSERT INTO users (unique_id, fname, lname, email, password, img, status, designation, location, employee_code, role) 
@@ -42,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         sanitizeInput($conn, $_POST['fname']),
         sanitizeInput($conn, $_POST['lname']),
         $email,
-        sanitizeInput($conn, $_POST['password']),
+        $hashed_password, // Use the hashed password here
         $img_name,
         sanitizeInput($conn, $_POST['designation']),
         sanitizeInput($conn, $_POST['location']),

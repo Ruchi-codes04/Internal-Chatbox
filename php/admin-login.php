@@ -5,7 +5,7 @@ require_once __DIR__ . '/../php/admin-functions.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $conn->real_escape_string(trim($_POST['email']));
-    $password = $conn->real_escape_string(trim($_POST['password']));
+    $password = trim($_POST['password']);
 
     if (empty($email) || empty($password)) {
         echo "All fields are required";
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
-        if ($user['password'] === $password) { // In production, use password_verify()
+        if (password_verify($password, $user['password'])) { // Verify hashed password
             session_start();
             $_SESSION['admin_unique_id'] = $user['unique_id'];
             echo "success";

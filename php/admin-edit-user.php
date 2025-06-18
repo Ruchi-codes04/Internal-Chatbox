@@ -1,3 +1,5 @@
+[file name]: admin-edit-user.php
+[file content begin]
 <?php
 // admin-edit-user.php
 include_once "C:/xampp/htdocs/Chat-App/php/config.php";
@@ -49,9 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         'img' => $img_name
     ];
     
-    // Add password if provided
+    // Add password if provided (and hash it)
     if (!empty($_POST['new_password'])) {
-        $fields['password'] = sanitizeInput($conn, $_POST['new_password']);
+        $fields['password'] = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
     }
 
     // Build SQL dynamically
@@ -87,3 +89,4 @@ if (isset($_GET['id'])) {
     header("Location: ../public/admin-users.php");
 }
 ?>
+[file content end]
