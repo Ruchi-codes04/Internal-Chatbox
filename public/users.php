@@ -25,6 +25,7 @@
                 </div>
             </div>
             <a href="../php/logout.php?logout_id=<?php echo $row['unique_id']?>" class="logout">Logout</a>
+            <a href="settings.php" class="settings-btn">⚙️ Settings</a>
            </header>
 
            <a href="create-group.php" class="create-group-btn">+ Create Group</a>
