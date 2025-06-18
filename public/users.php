@@ -30,6 +30,8 @@
 
            <a href="create-group.php" class="create-group-btn">+ Create Group</a>
            <a href="chat-requests.php" class="chat-request-link">Chat Requests</a>
+           <a href="contact-list.php" class="create-group-btn">Contacts</a>
+
 
 <!-- Group List Section -->
 <div class="group-list">

@@ -44,7 +44,7 @@
 
                     <div class="field input">
                         <label>E-mail</label>
-                        <input type="email" name="email" placeholder="Enter New email" required>
+                        <input type="email" name="email" placeholder="Enter New email" pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Only Gmail addresses are allowed (@gmail.com)" required>
                         
                     </div>
 
