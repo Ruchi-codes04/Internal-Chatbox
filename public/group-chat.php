@@ -26,7 +26,7 @@ if ($group_id) {
 ?>
 
         <a href="./users.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
-        <img src="../php/images/1749820324penguin.jpg" alt="Group" /> <!-- Use a placeholder group image -->
+        <img src="<?php echo !empty($group['group_image']) ? '../php/images/' . $group['group_image'] : '../php/images/1749820324penguin.jpg'; ?>" alt="Group Image">
         <div class="details">
           <span><?php echo $group['group_name']; ?></span>
           <?php

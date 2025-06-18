@@ -15,7 +15,7 @@
                 
                     <div class="field input">
                         <label>Email</label>
-                        <input type="text" name="email" placeholder="Enter Your Email" required>
+                       <input type="text" name="email" placeholder="Enter Your Email" pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Only Gmail addresses are allowed (@gmail.com)" required>
                     </div>
 
                     <div class="field input">

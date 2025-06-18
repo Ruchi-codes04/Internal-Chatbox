@@ -6,6 +6,12 @@ $email = mysqli_real_escape_string($conn, $_POST['email']);
 $password = mysqli_real_escape_string($conn, $_POST['password']);
 
 if (!empty($email) && !empty($password)) {
+    // Check if email ends with @gmail.com
+    if (!preg_match("/@gmail\.com$/i", $email)) {
+        echo "Only Gmail addresses are allowed (@gmail.com)";
+        exit();
+    }
+    
     // Fetch user with matching email
     $sql = mysqli_query($conn, "SELECT * FROM users WHERE email = '{$email}'");
 

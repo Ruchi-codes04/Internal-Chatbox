@@ -12,6 +12,12 @@ $employee_code = mysqli_real_escape_string($conn, $_POST['employee_code']);
 
 if (!empty($fname) && !empty($lname) && !empty($email) && !empty($password)) {
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // Check if email ends with @gmail.com
+        if (!preg_match("/@gmail\.com$/i", $email)) {
+            echo "Only Gmail addresses are allowed (@gmail.com)";
+            exit();
+        }
+        
         $sql = mysqli_query($conn, "SELECT email FROM users WHERE email = '{$email}'");
 
         if (mysqli_num_rows($sql) > 0) {
